@@ -1,10 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen'
 import './index.css'
+// Set up a Router instance
+const router = createRouter({
+	routeTree,
+	defaultPreload: 'intent',
+})
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const rootElement = document.getElementById('app')
+
+if (!rootElement.innerHTML) {
+	const root = ReactDOM.createRoot(rootElement)
+	root.render(<RouterProvider router={router} />)
+}
